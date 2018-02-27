@@ -1,12 +1,12 @@
 
 # OpenSSL File Encrypt
 
-#### Simple OpenSSL symmetric file encryption.
+#### Simple symmetric file encryption.
 
 
 ## Purpose
 
-Provide simple and strong and file encryption using OpenSSL, via PHP.
+Provide simple and strong file encryption with OpenSSL, via PHP.
 
 One use is to avoid direct OpenSSL interaction, such as:
 
