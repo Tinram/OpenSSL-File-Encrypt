@@ -29,7 +29,7 @@ results in the encrypted file *abc.txt.osl*
 
         php cmdline_example.php -d abc.txt.osl
 
-results in *abc.txt.*, with the correct password
+results in *abc.txt*, with the correct password
 
 -- and **overwrites** the original file *abc.txt* if it is present in the same directory.
 
@@ -38,7 +38,7 @@ results in *abc.txt.*, with the correct password
 
 The maximum file size that can be processed is approximately 1.8GB.
 
-This limit is dictated by the PHP *openssl* module (OpenSSL itself on the command-line will process 2GB+ files).
+This limit is seemingly dictated by the PHP *openssl* module (OpenSSL itself on the command-line will process 2GB+ files).
 
 
 ## Low Memory Systems
