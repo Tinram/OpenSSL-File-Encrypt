@@ -1,12 +1,12 @@
 
 # OpenSSL File Encrypt
 
-#### Simple symmetric file encryption.
+#### Simple symmetric file encryption using OpenSSL.
 
 
 ## Purpose
 
-Provide strong file encryption using OpenSSL, via an easy-to-use PHP wrapper.
+Provide simple-to-use and strong file encryption with OpenSSL and HMAC authentication, via an easy-to-use PHP wrapper.
 
 One use is to avoid direct OpenSSL command-line interaction, such as:
 
@@ -38,7 +38,7 @@ results in *abc.txt* (with the correct password)
 
 The maximum file size that can be processed is approximately 1.8GB.  (With no *php.ini* memory limitations.)
 
-The 1.8GB limit is seemingly dictated by the PHP *openssl* module (OpenSSL itself on the command-line will process 2GB+ files).
+The 1.8GB limit is seemingly dictated by the PHP *openssl* module (OpenSSL itself on the command-line will process files larger than 2GB).
 
 
 ## Speed
@@ -57,11 +57,15 @@ Adding the HMAC to the final file and decrypting successfully is not yet ready.
 
 ## References
 
-### OpenSSL key derivation
+### OpenSSL
+
++ [Usability](https://jameshfisher.com/2017/12/02/the-sorry-state-of-openssl-usability)
+
+### Key Derivation
 
 + [StackExchange](https://security.stackexchange.com/questions/29106/openssl-recover-key-and-iv-by-passphrase)
 + [EVP_BytesToKey](https://www.openssl.org/docs/manmaster/man3/EVP_BytesToKey.html)
-+ [OpenSSL source](https://github.com/openssl/openssl/blob/master/apps/enc.c)
++ [Source](https://github.com/openssl/openssl/blob/master/apps/enc.c)
 
 
 ## License
