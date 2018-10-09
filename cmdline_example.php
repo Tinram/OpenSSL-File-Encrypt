@@ -4,7 +4,7 @@
 /**
     * Command-line example usage of OpenSSL-File-Encrypt class.
     *
-    * Processes up to 1.8 GB on CLI, subject to memory availability.
+    * Processes up to 1.8GB on CLI, subject to memory availability.
     *
     * Usage:
     *        php <thisfilename> -e|-d <filename>
@@ -12,7 +12,7 @@
     * @author        Martin Latter <copysense.co.uk>
     * @copyright     Martin Latter 20/02/2018
     * @version       0.05
-    * @license       GNU GPL v3.0
+    * @license       GNU GPL version 3.0 (GPL v3); http://www.gnu.org/licenses/gpl.html
     * @link          https://github.com/Tinram/OpenSSL-File-Encrypt.git
 */
 

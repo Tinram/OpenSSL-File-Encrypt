@@ -12,7 +12,7 @@ One use is to avoid direct OpenSSL command-line interaction, such as:
 
         openssl enc -e -aes-256-cbc -in abc.txt -out abc.enc -k password -S deadbeef
 
-and offer something simpler:
+by offering something simpler:
 
         php cmdline_example.php -e abc.txt
 
@@ -36,16 +36,16 @@ results in *abc.txt* (with the correct password)
 
 ## Max File Size
 
-The maximum file size that can be processed is approximately 1.8GB.  (With no *php.ini* memory limitations.)
+The maximum file size that can be processed is approximately 1.8GB (with no *php.ini* memory limitations).
 
-The 1.8GB limit is seemingly dictated by the PHP *openssl* module (OpenSSL itself on the command-line will process files larger than 2GB).
+The 1.8GB limit is apparently dictated by the PHP *openssl* module (the OpenSSL executable will process files larger than 2GB).
 
 
 ## Speed
 
-The counter (CTR) cipher modes appear to be the fastest.
+Counter (CTR) cipher modes appear to be the fastest.
 
-Encryption / decryption rates of approximately 170MB/sec can be expected on mid-range hardware in CTR mode.
+Encryption and decryption rates of approximately 170MB/sec are possible on mid-range hardware in CTR mode.
 
 
 ## Low Memory Systems
