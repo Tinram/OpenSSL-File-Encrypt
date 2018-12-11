@@ -10,24 +10,32 @@ Provide simple-to-use and strong file encryption with OpenSSL and HMAC authentic
 
 One use is to avoid direct OpenSSL command-line interaction, such as:
 
-        openssl enc -e -aes-256-cbc -in abc.txt -out abc.enc -k password -S deadbeef
+```console
+    openssl enc -e -aes-256-cbc -in abc.txt -out abc.enc -k password -S deadbeef
+```
 
 by offering something simpler:
 
-        php cmdline_example.php -e abc.txt
+```console
+    php cmdline_example.php -e abc.txt
+```
 
 
 ## Example
 
 ### Encrypt
 
-        php cmdline_example.php -e abc.txt
+```console
+    php cmdline_example.php -e abc.txt
+```
 
 results in the encrypted file *abc.txt.osl*
 
 ### Decrypt
 
-        php cmdline_example.php -d abc.txt.osl
+```console
+    php cmdline_example.php -d abc.txt.osl
+```
 
 results in *abc.txt* (with the correct password)
 
