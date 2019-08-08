@@ -8,13 +8,16 @@
 
 Provide simple-to-use and strong file encryption with OpenSSL and HMAC authentication, via an easy-to-use PHP wrapper.
 
-One use is to avoid direct OpenSSL command-line interaction, such as:
+
+## Background
+
+OpenSSL includes tools for encrypting files; however, it's command-line interaction could be considered 'unfriendly':
 
 ```console
     openssl enc -e -aes-256-cbc -in abc.txt -out abc.enc -k password -S deadbeef
 ```
 
-by offering something simpler:
+This package can replace the above file encryption command with something simpler:
 
 ```console
     php cmdline_example.php -e abc.txt
@@ -39,7 +42,7 @@ results in the encrypted file *abc.txt.osl*
 
 results in *abc.txt* (with the correct password)
 
--- and ***overwrites*** the original file *abc.txt* if it is present in the same directory.
+&ndash; and ***overwrites*** the original file *abc.txt* if it is present in the same directory.
 
 
 ## Max File Size
