@@ -11,7 +11,7 @@ Provide simple-to-use and strong file encryption with OpenSSL and HMAC authentic
 
 ## Background
 
-OpenSSL includes tools for encrypting files; however, it's command-line interaction could be considered 'unfriendly':
+OpenSSL includes tools for encrypting files; however, its command-line usage could be considered 'unfriendly':
 
 ```console
     openssl enc -e -aes-256-cbc -in abc.txt -out abc.enc -k password -S deadbeef
