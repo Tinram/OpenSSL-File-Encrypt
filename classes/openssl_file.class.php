@@ -1,5 +1,9 @@
 <?php
 
+
+declare(strict_types = 1);
+
+
 final class OpenSSLFile
 {
     /**
@@ -9,7 +13,7 @@ final class OpenSSLFile
         *
         * @author      Martin Latter
         * @copyright   Martin Latter 20/02/2018
-        * @version     0.06
+        * @version     0.07
         * @license     GNU GPL version 3.0 (GPL v3); http://www.gnu.org/licenses/gpl.html
         * @link        https://github.com/Tinram/OpenSSL-File-Encrypt.git
     */
@@ -22,10 +26,10 @@ final class OpenSSLFile
     /* @const KEY_HASH, hash for password hashing and stretching */
     const KEY_HASH = 'SHA512';
 
-    /* @const KEY_STRETCHES, number of key stretch iterations */
-    const KEY_STRETCHES = 2 ** 16; /* increase towards paranoia */
+    /* @const KEY_STRETCHES, default number of key stretch iterations used when not user-defined  */
+    const KEY_STRETCHES = 2 ** 16;
 
-    /* @const SALT, salt for hash_pbkdf2() */
+    /* @const SALT, default salt for hash_pbkdf2() when not defined by calling script */
     const SALT = '♟⚡╀♦╋┌⚪♵┟◔━─┽♙⒉▦◐○♉◚ⓡⓚ♔┈Ⓢ┣╱♹⒖ⓔ╊⓻♧ⓛ┉♬┢☄◤⚧▣◵⚗⓭♋ⓛ☌⚵◜Ⓒ☶ⓟ⚄⚈┎☕♍☜╉█♫ⓧ⒛⓭';
 
     /* @const HMAC_HASH, hash for HMAC */
@@ -43,16 +47,23 @@ final class OpenSSLFile
         *
         * @param   string $sFilename, the file to encrypt
         * @param   string $sPassword, the password
+        * @param   int $iKeyStretches, number of key derivation iterations
+        * @param   string $sSalt, a CSPRNG-generated string used in key derivation (should be user-defined and not default self::SALT)
         * @return  string, message
     */
 
-    public static function encrypt(string $sFilename = '', string $sPassword = ''): string
+    public static function encrypt(string $sFilename = '', string $sPassword = '', int $iKeyStretches = self::KEY_STRETCHES, string $sSalt = self::SALT): string
     {
         self::checkArgs(__METHOD__, func_get_args());
 
+        if ($sSalt === self::SALT)
+        {
+             echo PHP_EOL . ' Warning: using the default ' . __CLASS__ . ' key derivation salt. A different CSPRNG-generated salt should be used.' . PHP_EOL;
+        }
+
         $sPlaintext = file_get_contents($sFilename);
 
-        $sKey = hash_pbkdf2(self::KEY_HASH, $sPassword, self::SALT, self::KEY_STRETCHES);
+        $sKey = hash_pbkdf2(self::KEY_HASH, $sPassword, $sSalt, $iKeyStretches);
 
         $iIVLen = openssl_cipher_iv_length(self::CIPHER);
         $IV = random_bytes($iIVLen);
@@ -80,16 +91,18 @@ final class OpenSSLFile
         *
         * @param   string $sFilename, the file to decrypt
         * @param   string $sPassword, the password
+        * @param   int $iKeyStretches, number of key derivation iterations
+        * @param   string $sSalt, a CSPRNG-generated string used in key derivation
         * @return  string, message
     */
 
-    public static function decrypt(string $sFilename = '', string $sPassword = ''): string
+    public static function decrypt(string $sFilename = '', string $sPassword = '', int $iKeyStretches = self::KEY_STRETCHES, string $sSalt = self::SALT): string
     {
         self::checkArgs(__METHOD__, func_get_args());
 
         $sCiphertext = file_get_contents($sFilename);
 
-        $sKey = hash_pbkdf2(self::KEY_HASH, $sPassword, self::SALT, self::KEY_STRETCHES);
+        $sKey = hash_pbkdf2(self::KEY_HASH, $sPassword, $sSalt, $iKeyStretches);
 
         $iIVLen = openssl_cipher_iv_length(self::CIPHER);
         $IV = substr($sCiphertext, 0, $iIVLen);

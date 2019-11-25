@@ -11,7 +11,7 @@
     *
     * @author        Martin Latter
     * @copyright     Martin Latter 20/02/2018
-    * @version       0.05
+    * @version       0.06
     * @license       GNU GPL version 3.0 (GPL v3); http://www.gnu.org/licenses/gpl.html
     * @link          https://github.com/Tinram/OpenSSL-File-Encrypt.git
 */
@@ -20,8 +20,14 @@
 declare(strict_types=1);
 
 
+#### CONFIG SECURITY ####
+define('MY_KEY_STRETCHES', 2 ** 18);
+define('MY_SALT', 'Ⓩ♢┱♘Ⓠ◢⒭☮☺◶♥╂⒣♻Ⓟ▐◦☩⒕♁Ⓚ⚑└◵▴ⓥ▸┊⚰┘┓─┙⚡◞☩♡▭▁◟◓╇╡◨Ⓑ♋┥⚑▽♘╨⒮ⓡ╕▴╫⓬Ⓕ◸◎◦ⓚⒷ♱');
+#########################
+
+
 define('DUB_EOL', PHP_EOL . PHP_EOL);
-define('LINUX', (stripos(php_uname(), 'linux') !== FALSE) ? TRUE : FALSE);
+define('LINUX', (stripos(php_uname(), 'linux') !== false) ? true : false);
 
 
 if ( ! extension_loaded('openssl'))
@@ -110,9 +116,9 @@ else
 
 if ($sMode === 'e')
 {
-    echo OpenSSLFile::encrypt($sFilename, $sPassword);
+    echo OpenSSLFile::encrypt($sFilename, $sPassword, MY_KEY_STRETCHES, MY_SALT);
 }
 else if ($sMode === 'd')
 {
-    echo OpenSSLFile::decrypt($sFilename, $sPassword);
+    echo OpenSSLFile::decrypt($sFilename, $sPassword, MY_KEY_STRETCHES, MY_SALT);
 }
