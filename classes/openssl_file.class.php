@@ -7,9 +7,9 @@ final class OpenSSLFile
         *
         * Coded to PHP 7.0
         *
-        * @author      Martin Latter <copysense.co.uk>
+        * @author      Martin Latter
         * @copyright   Martin Latter 20/02/2018
-        * @version     0.05
+        * @version     0.06
         * @license     GNU GPL version 3.0 (GPL v3); http://www.gnu.org/licenses/gpl.html
         * @link        https://github.com/Tinram/OpenSSL-File-Encrypt.git
     */
@@ -24,6 +24,9 @@ final class OpenSSLFile
 
     /* @const KEY_STRETCHES, number of key stretch iterations */
     const KEY_STRETCHES = 2 ** 16; /* increase towards paranoia */
+
+    /* @const SALT, salt for hash_pbkdf2() */
+    const SALT = '♟⚡╀♦╋┌⚪♵┟◔━─┽♙⒉▦◐○♉◚ⓡⓚ♔┈Ⓢ┣╱♹⒖ⓔ╊⓻♧ⓛ┉♬┢☄◤⚧▣◵⚗⓭♋ⓛ☌⚵◜Ⓒ☶ⓟ⚄⚈┎☕♍☜╉█♫ⓧ⒛⓭';
 
     /* @const HMAC_HASH, hash for HMAC */
     const HMAC_HASH = 'SHA512';
@@ -49,12 +52,7 @@ final class OpenSSLFile
 
         $sPlaintext = file_get_contents($sFilename);
 
-        $sKey = $sPassword;
-
-        for ($i = 0; $i < self::KEY_STRETCHES; $i++)
-        {
-            $sKey = openssl_digest($sKey, self::KEY_HASH);
-        }
+        $sKey = hash_pbkdf2(self::KEY_HASH, $sPassword, self::SALT, self::KEY_STRETCHES);
 
         $iIVLen = openssl_cipher_iv_length(self::CIPHER);
         $IV = random_bytes($iIVLen);
@@ -91,12 +89,7 @@ final class OpenSSLFile
 
         $sCiphertext = file_get_contents($sFilename);
 
-        $sKey = $sPassword;
-
-        for ($i = 0; $i < self::KEY_STRETCHES; $i++)
-        {
-            $sKey = openssl_digest($sKey, self::KEY_HASH);
-        }
+        $sKey = hash_pbkdf2(self::KEY_HASH, $sPassword, self::SALT, self::KEY_STRETCHES);
 
         $iIVLen = openssl_cipher_iv_length(self::CIPHER);
         $IV = substr($sCiphertext, 0, $iIVLen);
