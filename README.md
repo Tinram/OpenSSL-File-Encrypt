@@ -45,6 +45,36 @@ results in *abc.txt* (with the correct password)
 &ndash; and ***overwrites*** the original file *abc.txt* if it is present in the same directory.
 
 
+## Set-up
+
+### Improve Encryption Security
+
+In *cmdline_example.php* (and any new files based on this file):
+
++ increase the value of `MY_KEY_STRETCHES`
+    + high values will cause a noticeable processing delay &ndash; which is desirable to slow brute-force attacks against encrypted files
++ replace `MY_SALT` string with a new CSPRNG-generated string of random bytes, separating your key-derivation salt from the publicly-available (GitHub) default values
+    + ideally the `MY_SALT` string should be unique for each encryption transaction, voiding a rainbow table created against a static salt
+    + however, in a command-line script context, this impedes usability (effectively two passwords, one always different per transaction)
++ securely backup the new `MY_KEY_STRETCHES` and `MY_SALT` values
+    + if the the new values are lost, the ***encrypted data will be unrecoverable***.
+
+
+## Testing
+
+```bash
+    cd tests/
+
+    sh test_openssl-file-encrypt.sh
+```
+
+or
+
+```bash
+    ./test_openssl-file-encrypt.sh
+```
+
+
 ## Max File Size
 
 The maximum file size that can be processed is approximately 1.8GB (with no *php.ini* memory limitations).
