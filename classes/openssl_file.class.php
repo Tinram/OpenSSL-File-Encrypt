@@ -1,44 +1,41 @@
 <?php
 
-
 declare(strict_types = 1);
-
 
 final class OpenSSLFile
 {
     /**
         * Encrypt and decrypt files with OpenSSL module.
         *
-        * Coded to PHP 7.0
+        * Coded to PHP 7.2+
         *
         * @author      Martin Latter
         * @copyright   Martin Latter 20/02/2018
-        * @version     0.07
+        * @version     0.08
         * @license     GNU GPL version 3.0 (GPL v3); http://www.gnu.org/licenses/gpl.html
         * @link        https://github.com/Tinram/OpenSSL-File-Encrypt.git
     */
 
-
-    /* @const CIPHER encryption algorithm */
+    /** @const CIPHER encryption algorithm */
     const CIPHER = 'AES-256-CTR';
         /* other strong ciphers: AES-256-CBC, CAMELLIA-256-CBC */
 
-    /* @const KEY_HASH, hash for password hashing and stretching */
+    /** @const KEY_HASH, hash for password hashing and stretching */
     const KEY_HASH = 'SHA512';
 
-    /* @const KEY_STRETCHES, default number of key stretch iterations used when not user-defined  */
+    /** @const KEY_STRETCHES, default number of key stretch iterations used when not user-defined  */
     const KEY_STRETCHES = 2 ** 16;
 
-    /* @const SALT, default salt for hash_pbkdf2() when not defined by calling script */
+    /** @const SALT, default salt for hash_pbkdf2() when not defined by calling script */
     const SALT = '♟⚡╀♦╋┌⚪♵┟◔━─┽♙⒉▦◐○♉◚ⓡⓚ♔┈Ⓢ┣╱♹⒖ⓔ╊⓻♧ⓛ┉♬┢☄◤⚧▣◵⚗⓭♋ⓛ☌⚵◜Ⓒ☶ⓟ⚄⚈┎☕♍☜╉█♫ⓧ⒛⓭';
 
-    /* @const HMAC_HASH, hash for HMAC */
+    /** @const HMAC_HASH, hash for HMAC */
     const HMAC_HASH = 'SHA512';
 
-    /* @const HMAC_LEN, HMAC_HASH byte length */
+    /** @const HMAC_LEN, HMAC_HASH byte length */
     const HMAC_LEN = 64;
 
-    /* @const FILE_EXT, encrypted file extension suffix */
+    /** @const FILE_EXT, encrypted file extension suffix */
     const FILE_EXT = '.osl';
 
 
@@ -47,8 +44,9 @@ final class OpenSSLFile
         *
         * @param   string $sFilename, the file to encrypt
         * @param   string $sPassword, the password
-        * @param   int $iKeyStretches, number of key derivation iterations
+        * @param   integer $iKeyStretches, number of key derivation iterations
         * @param   string $sSalt, a CSPRNG-generated string used in key derivation (should be user-defined and not default self::SALT)
+        *
         * @return  string, message
     */
 
@@ -91,8 +89,9 @@ final class OpenSSLFile
         *
         * @param   string $sFilename, the file to decrypt
         * @param   string $sPassword, the password
-        * @param   int $iKeyStretches, number of key derivation iterations
+        * @param   integer $iKeyStretches, number of key derivation iterations
         * @param   string $sSalt, a CSPRNG-generated string used in key derivation
+        *
         * @return  string, message
     */
 
@@ -135,11 +134,11 @@ final class OpenSSLFile
     /**
         * Passed arguments checker.
         *
-        * @param   string $sMethodName, name of the method, for error output
-        * @param   array $aArgs, method arguments
+        * @param   string $sMethodName, name of the method - for error output
+        * @param   array $aArgs<string>, method arguments
     */
 
-    private static function checkArgs(string $sMethodName = '', array $aArgs = [])
+    private static function checkArgs(string $sMethodName = '', array $aArgs = []): void
     {
         if (empty($aArgs[0]))
         {
@@ -150,5 +149,4 @@ final class OpenSSLFile
             die(__CLASS__ . '::' . $sMethodName . '(): $sPassword is missing!' . PHP_EOL);
         }
     }
-
 }

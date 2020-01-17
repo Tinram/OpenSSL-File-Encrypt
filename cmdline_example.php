@@ -11,33 +11,27 @@
     *
     * @author        Martin Latter
     * @copyright     Martin Latter 20/02/2018
-    * @version       0.06
+    * @version       0.07
     * @license       GNU GPL version 3.0 (GPL v3); http://www.gnu.org/licenses/gpl.html
     * @link          https://github.com/Tinram/OpenSSL-File-Encrypt.git
 */
 
-
 declare(strict_types=1);
 
+require('classes/openssl_file.class.php');
 
 #### CONFIG SECURITY ####
 define('MY_KEY_STRETCHES', 2 ** 18);
 define('MY_SALT', 'Ⓩ♢┱♘Ⓠ◢⒭☮☺◶♥╂⒣♻Ⓟ▐◦☩⒕♁Ⓚ⚑└◵▴ⓥ▸┊⚰┘┓─┙⚡◞☩♡▭▁◟◓╇╡◨Ⓑ♋┥⚑▽♘╨⒮ⓡ╕▴╫⓬Ⓕ◸◎◦ⓚⒷ♱');
 #########################
 
-
 define('DUB_EOL', PHP_EOL . PHP_EOL);
 define('LINUX', (stripos(php_uname(), 'linux') !== false) ? true : false);
-
 
 if ( ! extension_loaded('openssl'))
 {
     die(PHP_EOL . ' OpenSSL library not available!' . DUB_EOL);
 }
-
-
-require('classes/openssl_file.class.php');
-
 
 $sUsage =
     PHP_EOL . ' ' . basename(__FILE__, '.php') .
@@ -80,7 +74,6 @@ if ( ! file_exists($sFilename))
     die(PHP_EOL . ' \'' . $sFilename . '\' does not exist in this directory!' . DUB_EOL);
 }
 
-
 if (LINUX)
 {
     echo ' password: ';
@@ -112,7 +105,6 @@ else
         $sPassword = $_SERVER['argv'][3];
     }
 }
-
 
 if ($sMode === 'e')
 {
