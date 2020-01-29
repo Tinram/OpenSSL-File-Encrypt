@@ -11,7 +11,7 @@
     *
     * @author        Martin Latter
     * @copyright     Martin Latter 20/02/2018
-    * @version       0.07
+    * @version       0.08
     * @license       GNU GPL version 3.0 (GPL v3); http://www.gnu.org/licenses/gpl.html
     * @link          https://github.com/Tinram/OpenSSL-File-Encrypt.git
 */
@@ -40,7 +40,7 @@ $sUsage =
 $sMode = null;
 $aOptions = getopt('h::e::d::', ['help::', 'h::']);
 
-if ( ! empty($aOptions))
+if (count($aOptions) !== 0)
 {
     $sOpt = key($aOptions);
 

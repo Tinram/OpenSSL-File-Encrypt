@@ -1,17 +1,17 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 final class OpenSSLFile
 {
     /**
         * Encrypt and decrypt files with OpenSSL module.
         *
-        * Coded to PHP 7.2+
+        * Coded to PHP 7.2
         *
         * @author      Martin Latter
         * @copyright   Martin Latter 20/02/2018
-        * @version     0.08
+        * @version     0.09
         * @license     GNU GPL version 3.0 (GPL v3); http://www.gnu.org/licenses/gpl.html
         * @link        https://github.com/Tinram/OpenSSL-File-Encrypt.git
     */
@@ -73,7 +73,7 @@ final class OpenSSLFile
 
         $iF = file_put_contents($sFilename . self::FILE_EXT, $sCiphertext);
 
-        if ($iF)
+        if ($iF !== false)
         {
             return PHP_EOL . ' \'' . $sFilename . self::FILE_EXT . '\' saved' . PHP_EOL;
         }
@@ -115,7 +115,7 @@ final class OpenSSLFile
         {
             $iF = file_put_contents(basename($sFilename, self::FILE_EXT), $sDecryptedText);
 
-            if ($iF)
+            if ($iF !== false)
             {
                 return PHP_EOL . ' decrypted file \'' . basename($sFilename, self::FILE_EXT) . '\' saved' . PHP_EOL;
             }
@@ -140,11 +140,11 @@ final class OpenSSLFile
 
     private static function checkArgs(string $sMethodName = '', array $aArgs = []): void
     {
-        if (empty($aArgs[0]))
+        if (count($aArgs[0]) === 0)
         {
             die(__CLASS__ . '::' . $sMethodName . '(): $sFilename is missing!' . PHP_EOL);
         }
-        else if (empty($aArgs[1]))
+        else if (count($aArgs[1]) === 0)
         {
             die(__CLASS__ . '::' . $sMethodName . '(): $sPassword is missing!' . PHP_EOL);
         }
